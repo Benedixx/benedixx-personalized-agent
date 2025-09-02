@@ -9,11 +9,12 @@ import (
 var Config *Configuration
 
 type Configuration struct {
-	OpenRouterKey string
-	PrimaryLLM    string
-	ReasoningLLM  string
-	SmallLLM      string
-	OllamaURL     string
+	OpenRouterKey  string
+	PrimaryLLM     string
+	ReasoningLLM   string
+	SmallLLM       string
+	OllamaURL      string
+	EmbeddingModel string
 }
 
 func LoadConfig() error {
@@ -25,11 +26,12 @@ func LoadConfig() error {
 
 	// init env secrets
 	Config = &Configuration{
-		OpenRouterKey: os.Getenv("OPENROUTER_API_KEY"),
-		PrimaryLLM:    os.Getenv("PRIMARY_LLM_MODEL"),
-		ReasoningLLM:  os.Getenv("REASONING_LLM_MODEL"),
-		SmallLLM:      os.Getenv("SMALL_LLM_MODEL"),
-		OllamaURL:     os.Getenv("OLLAMA_URL"),
+		OpenRouterKey:  os.Getenv("OPENROUTER_API_KEY"),
+		PrimaryLLM:     os.Getenv("PRIMARY_LLM_MODEL"),
+		ReasoningLLM:   os.Getenv("REASONING_LLM_MODEL"),
+		SmallLLM:       os.Getenv("SMALL_LLM_MODEL"),
+		OllamaURL:      os.Getenv("OLLAMA_URL"),
+		EmbeddingModel: os.Getenv("EMBEDDING_MODEL"),
 	}
 
 	return nil

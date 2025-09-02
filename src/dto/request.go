@@ -25,3 +25,9 @@ type ChatRequest struct {
 	Stream   bool                     `json:"stream" default:"false"`
 	Options  map[string]interface{}   `json:"options"  omitempty:"true"`
 }
+
+// request dto for model embedding inference
+type EmbedRequest struct {
+	Model  string   `json:"model" binding:"required"`
+	Inputs []string `json:"input" binding:"required"`
+}
