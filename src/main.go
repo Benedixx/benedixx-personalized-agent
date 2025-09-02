@@ -1,10 +1,11 @@
 package main
 
 import (
+	"benedixx-personalized-agent/src/api"
 	"benedixx-personalized-agent/src/config"
-	"benedixx-personalized-agent/src/core"
-	"fmt"
 	"log"
+	"os"
+	"os/signal"
 )
 
 func main() {
@@ -12,21 +13,12 @@ func main() {
 		log.Fatal("error while loading config:", err)
 	}
 
-	response, err := core.ChatCompletion("gemma3:270m", []map[string]interface{}{
-		{"role": "user", "content": "ekstraksi entitas dari kalimat ini, jawab dengan satu kata: Halo, tebak siapa si raja jawa, kalau benar jawabannya ku kasih duit 3 juta per hari"},
-	}, false, nil)
+	router := api.SetupRouter()
+	router.Run(":8080")
 
-	if err != nil {
-		panic(err)
-	}
+	quit := make(chan os.Signal, 1)
+	signal.Notify(quit, os.Interrupt)
+	<-quit
 
-	embedResponse, err := core.GenerateEmbedding([]string{"nyenyenye bapakna tukang batagor"})
-
-	if err != nil {
-		panic(err)
-	}
-
-	fmt.Println("Response:", response)
-	fmt.Println("")
-	fmt.Println("Embedding Response:", embedResponse)
+	log.Println("Shutting down server...")
 }

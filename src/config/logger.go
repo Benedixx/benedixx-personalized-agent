@@ -13,6 +13,7 @@ func InitLogger() {
 	Log.SetOutput(os.Stdout)
 	Log.SetLevel(logrus.DebugLevel)
 	Log.SetFormatter(&formatter.Formatter{
+		NoColors:    false,
 		HideKeys:    true,
 		FieldsOrder: []string{"time", "level", "msg"},
 	})
@@ -30,4 +31,16 @@ func Warn(msg string, fields ...interface{}) {
 	logrus.WithFields(logrus.Fields{
 		"fields": fields,
 	}).Warn(msg)
+}
+
+func Error(msg string, fields ...interface{}) {
+	logrus.WithFields(logrus.Fields{
+		"fields": fields,
+	}).Error(msg)
+}
+
+func Critical(msg string, fields ...interface{}) {
+	logrus.WithFields(logrus.Fields{
+		"fields": fields,
+	}).Fatal(msg)
 }
