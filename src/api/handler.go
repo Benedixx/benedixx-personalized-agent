@@ -39,3 +39,13 @@ func EmbedHandler(c *gin.Context) {
 
 	c.JSON(http.StatusOK, response)
 }
+
+func IngestDoc(c *gin.Context) {
+	var request dto.IngestDocRequest
+	if err := c.ShouldBind(&request); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"status": "success"})
+}
