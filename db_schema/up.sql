@@ -11,7 +11,7 @@ CREATE TABLE "chunks" (
   "document_id" int,
   "chunk_text" text,
   "page_number" int,
-  "embedding" vector(1536)
+  "embedding" vector(768)
 );
 
 CREATE TABLE "entities" (

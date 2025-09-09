@@ -13,9 +13,15 @@ type FileMetadata struct {
 	Year   int    `json:"year"`
 }
 
+type ChunkData struct {
+	Text       string    `json:"text"`
+	Embedding  []float64 `json:"embedding"`
+	PageNumber int       `json:"page_number"`
+}
+
 type IngestDocRequest struct {
 	File     *multipart.FileHeader `form:"file" binding:"required"`
-	Metadata string                `form:"metadata" binding:"required"`
+	Metadata FileMetadata          `json:"metadata" binding:"required"`
 }
 
 // request dto for model inference
