@@ -8,9 +8,9 @@ type UploadPDFRequest struct {
 }
 
 type FileMetadata struct {
-	Title  string `json:"title"`
-	Author string `json:"author"`
-	Year   int    `json:"year"`
+	Title  string `json:"title" validate:"required"`
+	Author string `json:"author" validate:"required"`
+	Year   int    `json:"year" validate:"required"`
 }
 
 type ChunkData struct {
@@ -21,7 +21,7 @@ type ChunkData struct {
 
 type IngestDocRequest struct {
 	File     *multipart.FileHeader `form:"file" binding:"required"`
-	Metadata FileMetadata          `json:"metadata" binding:"required"`
+	Metadata FileMetadata          `json:"metadata"`
 }
 
 // request dto for model inference

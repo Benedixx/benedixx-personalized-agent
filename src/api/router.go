@@ -9,6 +9,7 @@ func SetupRouter() *gin.Engine {
 
 	r.POST("/chat", ChatHandler)
 	r.POST("/embed", EmbedHandler)
+	r.POST("/ingest", IngestDoc)
 
 	return r
 }
