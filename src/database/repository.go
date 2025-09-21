@@ -78,3 +78,20 @@ func UpsertDocumentWithChunks(fileMetadata dto.FileMetadata, chunks []dto.ChunkD
 
 	return nil
 }
+
+func GetRelevantChunks(embedding []float64, topK int) ([]dto.ChunkResult, error) {
+	db := GetDB()
+	vectorStr := float64SliceToVector(embedding)
+	query := `
+        SELECT chunk_text, document_id, page_number
+        FROM chunks
+        ORDER BY embedding <-> $1::vector
+        LIMIT $2;
+    `
+	var chunks []dto.ChunkResult
+	err := db.Select(&chunks, query, vectorStr, topK)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get relevant chunks: %w", err)
+	}
+	return chunks, nil
+}

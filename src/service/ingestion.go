@@ -62,6 +62,7 @@ func ReadPDF(path string, fileMetadata dto.FileMetadata) (map[string]interface{}
 }
 
 func ChunkText(text string, chunkSize int, overlap int) []string {
+	// recusive text splitter like langchain functionality
 	var chunks []string
 	dataLen := len(text)
 
@@ -120,6 +121,7 @@ func IngestDocument(path string, fileMetadata dto.FileMetadata) error {
 				PageNumber: page["page"].(int),
 			}
 			allChunks = append(allChunks, chunkData)
+
 		}
 	}
 

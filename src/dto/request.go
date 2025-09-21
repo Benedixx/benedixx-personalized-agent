@@ -37,3 +37,27 @@ type EmbedRequest struct {
 	Model  string   `json:"model" binding:"required"`
 	Inputs []string `json:"input" binding:"required"`
 }
+
+type EntityData struct {
+	Name              string `json:"name"`
+	Type              string `json:"type"`
+	EntityDescription string `json:"description"`
+}
+
+type RelationData struct {
+	Source     string `json:"source"`
+	Target     string `json:"target"`
+	Relation   string `json:"relation"`
+	ChunkIndex int    `json:"chunk_index"`
+}
+
+type ChunkResult struct {
+	ChunkText  string `db:"chunk_text"`
+	DocumentID int    `db:"document_id"`
+	PageNumber int    `db:"page_number"`
+}
+
+type RetrieveRequest struct {
+	Query string `form:"query" binding:"required"`
+	TopK  *int   `form:"top_k"`
+}

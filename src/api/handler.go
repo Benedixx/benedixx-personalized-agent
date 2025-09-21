@@ -88,3 +88,24 @@ func IngestDoc(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"status": "success"})
 }
+
+func RetrieveHandler(c *gin.Context) {
+	var request dto.RetrieveRequest
+	if err := c.ShouldBind(&request); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	topK := 5
+	if request.TopK != nil {
+		topK = *request.TopK
+	}
+
+	chunks, err := service.RetrieveRelevantChunks(request.Query, topK)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, chunks)
+}
